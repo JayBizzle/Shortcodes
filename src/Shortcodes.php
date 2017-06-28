@@ -97,6 +97,7 @@ class Shortcodes
         } else {
             // self-closing tag
             $parsed = (new $className($attr, null, $tag))->parse();
+
             return $matches[1].$parsed.$matches[6];
         }
     }
