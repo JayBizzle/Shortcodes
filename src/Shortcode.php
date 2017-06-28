@@ -6,7 +6,7 @@ use Jaybizzle\Shortcodes\ShortcodeContract;
 
 abstract class Shortcode implements ShortcodeContract
 {
-	public $attr;
+    public $attr;
 
     public $content;
 
