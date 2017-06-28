@@ -42,6 +42,7 @@ class Shortcodes
 
     /**
      * Search content for shortcodes and filter shortcodes through their hooks.
+     * 
      * @param  string $content
      * @return string
      */
