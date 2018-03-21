@@ -95,7 +95,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
     {
         $expected = [[
             'bar' => 'baz',
-            'qux' => 'foo'
+            'qux' => 'foo',
         ]];
 
         $this->assertEquals($expected, $this->shortcodes->getShortcode('foo', 'This is some [foo bar=baz qux=foo] [bar bar=baz qux=foo] content'));
@@ -110,15 +110,15 @@ class ParseTest extends PHPUnit_Framework_TestCase
         $expected = [
             'foo' => [[
                 'bar' => 'baz',
-                'qux' => 'foo'
-            ],[
+                'qux' => 'foo',
+            ], [
                 'bar' => 'baz',
-                'qux' => 'foo'
+                'qux' => 'foo',
             ]],
             'bar' => [[
                 'bar' => 'baz',
-                'qux' => 'foo'
-            ]]
+                'qux' => 'foo',
+            ]],
         ];
 
         $this->assertEquals($expected, $this->shortcodes->getShortcodes('This is some [foo bar=baz qux=foo] [foo bar=baz qux=foo] [bar bar=baz qux=foo] content'));
