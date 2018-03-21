@@ -6,14 +6,14 @@ class Shortcodes
 {
     /**
      * Container for storing shortcode tags and their hook to call for the shortcode.
-     * 
+     *
      * @var array
      */
     public $shortcodeTags = [];
 
     /**
      * Add shortcode hooks.
-     * 
+     *
      * @param string $tag
      * @param string $class
      */
@@ -24,7 +24,7 @@ class Shortcodes
 
     /**
      * Remove shortcode tag from shortcode container.
-     * 
+     *
      * @param string $tag
      */
     public function remove($tag)
@@ -33,7 +33,7 @@ class Shortcodes
     }
 
     /**
-     * Remove all shortcode tags from the shortcode container.
+     * Remove all shortcodes tags from the shortcode container.
      */
     public function removeAll()
     {
@@ -42,7 +42,7 @@ class Shortcodes
 
     /**
      * Search content for shortcodes and filter shortcodes through their hooks.
-     * 
+     *
      * @param  string $content
      * @return string
      */
@@ -59,25 +59,35 @@ class Shortcodes
 
     /**
      * Retrieve the shortcode regular expression for searching.
-     *   
+     *
      * @return string
      */
-    public function getShortcodeRegex()
+    protected function getShortcodeRegex()
     {
-        $tagnames = array_keys($this->shortcodeTags);
-        $tagregexp = implode('|', array_map('preg_quote', $tagnames));
+        $tagNames = array_keys($this->shortcodeTags);
+        $tagRegexp = implode('|', array_map('preg_quote', $tagNames));
 
-        // WARNING! Do not change this regex without changing doShortcodeTag() and stripShortcodes()
-        return '(.?)\[('.$tagregexp.')\b(.*?)(?:(\/))?\](?:(.+?)\[\/\2\])?(.?)';
+        return $this->buildShortcodeRegex($tagRegexp);
     }
 
     /**
-     * Regular Expression callable for do_shortcode() for calling shortcode hook.
-     * 
+     * Build the shortcode regex for the specified tags.
+     *
+     * @param string $tags
+     * @return string
+     */
+    protected function buildShortcodeRegex($tags)
+    {
+        return '(.?)\[('.$tags.')\b(.*?)(?:(\/))?\](?:(.+?)\[\/\2\])?(.?)';
+    }
+
+    /**
+     * Regular Expression callable for doShortcode() for calling shortcode hook.
+     *
      * @param  array $matches
      * @return string
      */
-    public function doShortcodeTag($matches)
+    protected function doShortcodeTag($matches)
     {
         // allow [[foo]] syntax for escaping a tag
         if ($matches[1] == '[' && $matches[6] == ']') {
@@ -103,16 +113,17 @@ class Shortcodes
     }
 
     /**
-     * Retrieve all attributes from the shortcodes tag.
-     * 
+     * Retrieve all attributes from the shortcode tag.
+     *
      * @param  string $text
      * @return array
      */
-    public function shortcodeParseAtts($text)
+    protected function shortcodeParseAtts($text)
     {
         $atts = [];
         $pattern = '/(\w+)\s*=\s*"([^"]*)"(?:\s|$)|(\w+)\s*=\s*\'([^\']*)\'(?:\s|$)|(\w+)\s*=\s*([^\s\'"]+)(?:\s|$)|"([^"]*)"(?:\s|$)|(\S+)(?:\s|$)/';
         $text = preg_replace("/[\x{00a0}\x{200b}]+/u", ' ', $text);
+
         if (preg_match_all($pattern, $text, $match, PREG_SET_ORDER)) {
             foreach ($match as $m) {
                 if (! empty($m[1])) {
@@ -148,6 +159,52 @@ class Shortcodes
 
         $pattern = $this->getShortcodeRegex();
 
-        return preg_replace('/'.$pattern.'/s', '$1$6', $content);
+        return preg_replace('/'.$pattern.'/s', ' ', $content);
+    }
+
+    /**
+     * Remove specified shortcode tag from the given content.
+     *
+     * @param  string $content
+     * @return string
+     */
+    public function stripShortcode($shortcode, $content)
+    {
+        $pattern = $this->buildShortcodeRegex(preg_quote($shortcode));
+
+        return preg_replace('/'.$pattern.'/s', ' ', $content);
+    }
+
+    public function getShortcodes($content)
+    {
+        foreach (array_keys($this->shortcodeTags) as $shortcode) {
+            $tags[$shortcode] = $this->getShortcode($shortcode, $content);
+        }
+
+        return $tags;
+    }
+
+    /**
+     * Get attributes for the specified shortcodes.
+     *
+     * @param string $shortcode
+     * @param string $content
+     * @return array
+     */
+    public function getShortcode($shortcode, $content)
+    {
+        $pattern = $this->buildShortcodeRegex($shortcode);
+
+        preg_match_all('/'.$pattern.'/s', $content, $matches);
+
+        if (empty($matches[3])) {
+            return [];
+        }
+
+        foreach ($matches[3] as $m) {
+            $data[] = $this->shortcodeParseAtts($m);
+        }
+
+        return $data;
     }
 }
