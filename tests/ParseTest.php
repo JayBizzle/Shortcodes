@@ -11,6 +11,12 @@ class ParseTest extends PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function no_tags_added()
+    {
+        $this->assertEquals('This is some [foo /] content', $this->shortcodes->parse('This is some [foo /] content'));
+    }
+
+    /** @test */
     public function tags_with_closing_slash()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
