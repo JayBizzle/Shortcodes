@@ -272,7 +272,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
         $this->shortcodes->add('foo', FooShortcode::class);
 
         $this->assertEquals(
-            'This is some <foo url=http%3A%2F%2Fwww.foo.com%2Fbar></foo> content',
+            'This is some <foo 0=123 1=http%3A%2F%2Ffoo.com%2F 2=0 3=foo 4=bar></foo> content',
             $this->shortcodes->parse('This is some [foo 123 http://foo.com/ 0 "foo" bar] content')
         );
     }
