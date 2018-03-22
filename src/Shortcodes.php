@@ -99,17 +99,9 @@ class Shortcodes
 
         $className = $this->shortcodeTags[$tag];
 
-        if (isset($matches[5])) {
-            // enclosing tag - extra parameter
-            $parsed = (new $className($attr, $matches[5], $tag))->parse();
+        $parsed = (new $className($attr, $matches[5], $tag))->parse();
 
-            return $matches[1].$parsed.$matches[6];
-        } else {
-            // self-closing tag
-            $parsed = (new $className($attr, null, $tag))->parse();
-
-            return $matches[1].$parsed.$matches[6];
-        }
+        return $matches[1].$parsed.$matches[6];
     }
 
     /**
