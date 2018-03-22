@@ -13,7 +13,10 @@ class ParseTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function no_tags_added()
     {
-        $this->assertEquals('This is some [foo /] content', $this->shortcodes->parse('This is some [foo /] content'));
+        $this->assertEquals(
+            'This is some [foo /] content',
+            $this->shortcodes->parse('This is some [foo /] content')
+        );
     }
 
     /** @test */
@@ -21,7 +24,10 @@ class ParseTest extends PHPUnit_Framework_TestCase
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
-        $this->assertEquals('This is some <foo></foo> content', $this->shortcodes->parse('This is some [foo /] content'));
+        $this->assertEquals(
+            'This is some <foo></foo> content',
+            $this->shortcodes->parse('This is some [foo /] content')
+        );
     }
 
     /** @test */
@@ -29,7 +35,10 @@ class ParseTest extends PHPUnit_Framework_TestCase
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
-        $this->assertEquals('This is some <foo></foo> content', $this->shortcodes->parse('This is some [foo] content'));
+        $this->assertEquals(
+            'This is some <foo></foo> content',
+            $this->shortcodes->parse('This is some [foo] content')
+        );
     }
 
     /** @test */
@@ -37,7 +46,10 @@ class ParseTest extends PHPUnit_Framework_TestCase
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
-        $this->assertEquals('This is some <foo bar=baz></foo> content', $this->shortcodes->parse('This is some [foo bar=baz /] content'));
+        $this->assertEquals(
+            'This is some <foo bar=baz></foo> content',
+            $this->shortcodes->parse('This is some [foo bar=baz /] content')
+        );
     }
 
     /** @test */
@@ -45,7 +57,10 @@ class ParseTest extends PHPUnit_Framework_TestCase
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
-        $this->assertEquals('This is some <foo bar=baz></foo> content', $this->shortcodes->parse('This is some [foo bar=baz] content'));
+        $this->assertEquals(
+            'This is some <foo bar=baz></foo> content',
+            $this->shortcodes->parse('This is some [foo bar=baz] content')
+        );
     }
 
     /** @test */
@@ -53,7 +68,10 @@ class ParseTest extends PHPUnit_Framework_TestCase
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
-        $this->assertEquals('This is some <foo>bar baz</foo> content', $this->shortcodes->parse('This is some [foo]bar baz[/foo] content'));
+        $this->assertEquals(
+            'This is some <foo>bar baz</foo> content',
+            $this->shortcodes->parse('This is some [foo]bar baz[/foo] content')
+        );
     }
 
     /** @test */
@@ -61,7 +79,10 @@ class ParseTest extends PHPUnit_Framework_TestCase
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
-        $this->assertEquals('This is some <foo bar=baz></foo> content', $this->shortcodes->parse('This is some [foo bar="baz"] content'));
+        $this->assertEquals(
+            'This is some <foo bar=baz></foo> content',
+            $this->shortcodes->parse('This is some [foo bar="baz"] content')
+        );
     }
 
     /** @test */
@@ -69,7 +90,10 @@ class ParseTest extends PHPUnit_Framework_TestCase
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
-        $this->assertEquals('This is some <foo bar=baz></foo> content', $this->shortcodes->parse('This is some [foo bar=\'baz\'] content'));
+        $this->assertEquals(
+            'This is some <foo bar=baz></foo> content',
+            $this->shortcodes->parse('This is some [foo bar=\'baz\'] content')
+        );
     }
 
     /** @test */
@@ -77,7 +101,10 @@ class ParseTest extends PHPUnit_Framework_TestCase
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
-        $this->assertEquals('This is some <foo bar=baz qux=foo></foo> content', $this->shortcodes->parse('This is some [foo bar=baz qux=foo] content'));
+        $this->assertEquals(
+            'This is some <foo bar=baz qux=foo></foo> content',
+            $this->shortcodes->parse('This is some [foo bar=baz qux=foo] content')
+        );
     }
 
     /** @test */
@@ -85,7 +112,10 @@ class ParseTest extends PHPUnit_Framework_TestCase
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
-        $this->assertEquals('This is some content', $this->shortcodes->stripShortcodes('This is some [foo bar=baz qux=foo] content'));
+        $this->assertEquals(
+            'This is some content',
+            $this->shortcodes->stripShortcodes('This is some [foo bar=baz qux=foo] content')
+        );
     }
 
     /** @test */
@@ -93,7 +123,10 @@ class ParseTest extends PHPUnit_Framework_TestCase
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
-        $this->assertEquals('This is some [bar bar=baz qux=foo] content', $this->shortcodes->stripShortcode('foo', 'This is some [foo bar=baz qux=foo] [bar bar=baz qux=foo] content'));
+        $this->assertEquals(
+            'This is some [bar bar=baz qux=foo] content',
+            $this->shortcodes->stripShortcode('foo', 'This is some [foo bar=baz qux=foo] [bar bar=baz qux=foo] content')
+        );
     }
 
     /** @test */
@@ -104,7 +137,10 @@ class ParseTest extends PHPUnit_Framework_TestCase
             'qux' => 'foo',
         ]];
 
-        $this->assertEquals($expected, $this->shortcodes->getShortcode('foo', 'This is some [foo bar=baz qux=foo] [bar bar=baz qux=foo] content'));
+        $this->assertEquals(
+            $expected,
+            $this->shortcodes->getShortcode('foo', 'This is some [foo bar=baz qux=foo] [bar bar=baz qux=foo] content')
+        );
     }
 
     /** @test */
@@ -127,7 +163,11 @@ class ParseTest extends PHPUnit_Framework_TestCase
             ]],
         ];
 
-        $this->assertEquals($expected, $this->shortcodes->getShortcodes('This is some [foo bar=baz qux=foo] [foo bar=baz qux=foo] [bar bar=baz qux=foo] content'));
+        $this->assertEquals(
+            $expected,
+            $this->shortcodes->getShortcodes('This is some [foo bar=baz qux=foo] [foo bar=baz qux=foo] [bar bar=baz qux=foo] content')
+        );
+    }
     }
 }
 
