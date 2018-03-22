@@ -215,7 +215,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
     public function shortcode_with_hyphens()
     {
         $this->shortcodes->add('foo-bar', FooShortcode::class);
-        
+
         $this->assertEquals(
             'This is some <foo></foo> content',
             $this->shortcodes->parse('This is some [foo-bar] content')
@@ -226,7 +226,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
     public function attribute_with_double_quotes()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
-        
+
         $this->assertEquals(
             'This is some <foo bar=baz></foo> content',
             $this->shortcodes->parse('This is some [foo bar="baz"] content')
@@ -237,7 +237,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
     public function attribute_with_single_quotes()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
-        
+
         $this->assertEquals(
             'This is some <foo bar=baz></foo> content',
             $this->shortcodes->parse('This is some [foo bar=\'baz\'] content')
@@ -248,7 +248,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
     public function single_positional_attribute()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
-        
+
         $this->assertEquals(
             'This is some <foo 0=123></foo> content',
             $this->shortcodes->parse('This is some [foo 123] content')
@@ -259,7 +259,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
     public function attribute_with_url()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
-        
+
         $this->assertEquals(
             'This is some <foo url=http%3A%2F%2Fwww.foo.com%2Fbar></foo> content',
             $this->shortcodes->parse('This is some [foo url=http://www.foo.com/bar] content')
@@ -270,7 +270,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
     public function mixed_attribute_types()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
-        
+
         $this->assertEquals(
             'This is some <foo url=http%3A%2F%2Fwww.foo.com%2Fbar></foo> content',
             $this->shortcodes->parse('This is some [foo 123 http://foo.com/ 0 "foo" bar] content')
