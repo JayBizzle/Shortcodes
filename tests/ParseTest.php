@@ -130,13 +130,13 @@ class ParseTest extends PHPUnit_Framework_TestCase
     }
 
     /** @test */
-    public function we_can_strip_specified_tag_when_it_does_not_exist_in_content()
+    public function we_can_get_attributes_for_specified_shortcode()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
         $this->assertEquals(
-            'This is some [bar bar=baz qux=foo] content',
-            $this->shortcodes->stripShortcode('foo', 'This is some [bar bar=baz qux=foo] content')
+            [],
+            $this->shortcodes->getShortcode('foo', 'This is some [bar bar=baz qux=foo] content')
         );
     }
 
