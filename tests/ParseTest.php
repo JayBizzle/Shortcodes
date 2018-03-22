@@ -168,6 +168,47 @@ class ParseTest extends PHPUnit_Framework_TestCase
             $this->shortcodes->getShortcodes('This is some [foo bar=baz qux=foo] [foo bar=baz qux=foo] [bar bar=baz qux=foo] content')
         );
     }
+
+    /** @test */
+    public function test_we_can_remove_single_shortcode_tag()
+    {
+        $this->shortcodes->add('foo', FooShortcode::class);
+        $this->shortcodes->add('bar', FooShortcode::class);
+
+        $this->shortcodes->remove('foo');
+
+        $this->assertCount(1, $this->shortcodes->shortcodeTags);
+    }
+
+    /** @test */
+    public function test_we_can_remove_all_shortcode_tags()
+    {
+        $this->shortcodes->add('foo', FooShortcode::class);
+        $this->shortcodes->add('bar', FooShortcode::class);
+
+        $this->shortcodes->removeAll('foo');
+
+        $this->assertCount(0, $this->shortcodes->shortcodeTags);
+    }
+
+    /** @test */
+    public function shortcode_tags_can_be_escaped()
+    {
+        $this->shortcodes->add('foo', FooShortcode::class);
+
+        $this->assertEquals(
+            'This is some [foo bar=baz] content',
+            $this->shortcodes->parse('This is some [[foo bar=baz]] content')
+        );
+    }
+
+    /** @test */
+    public function stripping_none_existent_shortcodes()
+    {
+        $this->assertEquals(
+            'This is some content',
+            $this->shortcodes->parse('This is some content')
+        );
     }
 }
 
