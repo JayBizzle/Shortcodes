@@ -130,6 +130,26 @@ class ParseTest extends PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function we_can_strip_specified_tag_when_it_does_not_exist_in_content()
+    {
+        $this->shortcodes->add('foo', FooShortcode::class);
+
+        $this->assertEquals(
+            'This is some [bar bar=baz qux=foo] content',
+            $this->shortcodes->stripShortcode('foo', 'This is some [bar bar=baz qux=foo] content')
+        );
+    }
+
+    /** @test */
+    public function we_can_strip_tags_when_no_tags_specified()
+    {
+        $this->assertEquals(
+            'This is some [foo bar=baz qux=foo] content',
+            $this->shortcodes->stripShortcodes('This is some [foo bar=baz qux=foo] content')
+        );
+    }
+
+    /** @test */
     public function we_can_get_the_attributes_from_the_specified_tag()
     {
         $expected = [[
@@ -203,7 +223,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
     }
 
     /** @test */
-    public function stripping_none_existent_shortcodes()
+    public function content_with_no_shortcodes()
     {
         $this->assertEquals(
             'This is some content',
