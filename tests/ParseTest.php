@@ -22,7 +22,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function tags_with_closing_slash()
     {
-        $this->shortcodes->add('foo', FooShortcode::class);
+        $this->shortcodes->add(FooShortcode::class);
 
         $this->assertEquals(
             'This is some <foo></foo> content',
@@ -33,7 +33,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function tags_without_closing_slash()
     {
-        $this->shortcodes->add('foo', FooShortcode::class);
+        $this->shortcodes->add(FooShortcode::class);
 
         $this->assertEquals(
             'This is some <foo></foo> content',
@@ -44,7 +44,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function tags_with_closing_slash_and_attributes()
     {
-        $this->shortcodes->add('foo', FooShortcode::class);
+        $this->shortcodes->add(FooShortcode::class);
 
         $this->assertEquals(
             'This is some <foo bar=baz></foo> content',
@@ -55,7 +55,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function tags_without_closing_slash_and_attributes()
     {
-        $this->shortcodes->add('foo', FooShortcode::class);
+        $this->shortcodes->add(FooShortcode::class);
 
         $this->assertEquals(
             'This is some <foo bar=baz></foo> content',
@@ -66,7 +66,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function tags_with_opening_and_closing_tags()
     {
-        $this->shortcodes->add('foo', FooShortcode::class);
+        $this->shortcodes->add(FooShortcode::class);
 
         $this->assertEquals(
             'This is some <foo>bar baz</foo> content',
@@ -77,7 +77,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function attributes_enclosed_in_double_quotes()
     {
-        $this->shortcodes->add('foo', FooShortcode::class);
+        $this->shortcodes->add(FooShortcode::class);
 
         $this->assertEquals(
             'This is some <foo bar=baz></foo> content',
@@ -88,7 +88,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function attributes_enclosed_in_single_quotes()
     {
-        $this->shortcodes->add('foo', FooShortcode::class);
+        $this->shortcodes->add(FooShortcode::class);
 
         $this->assertEquals(
             'This is some <foo bar=baz></foo> content',
@@ -99,7 +99,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function attributes_multiple_attributes()
     {
-        $this->shortcodes->add('foo', FooShortcode::class);
+        $this->shortcodes->add(FooShortcode::class);
 
         $this->assertEquals(
             'This is some <foo bar=baz qux=foo></foo> content',
@@ -110,7 +110,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function we_can_strip_all_tags()
     {
-        $this->shortcodes->add('foo', FooShortcode::class);
+        $this->shortcodes->add(FooShortcode::class);
 
         $this->assertEquals(
             'This is some content',
@@ -121,7 +121,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function we_can_strip_specified_tag()
     {
-        $this->shortcodes->add('foo', FooShortcode::class);
+        $this->shortcodes->add(FooShortcode::class);
 
         $this->assertEquals(
             'This is some [bar bar=baz qux=foo] content',
@@ -132,7 +132,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function we_can_get_attributes_for_specified_shortcode()
     {
-        $this->shortcodes->add('foo', FooShortcode::class);
+        $this->shortcodes->add(FooShortcode::class);
 
         $this->assertEquals(
             [],
@@ -166,8 +166,8 @@ class ParseTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function we_can_get_the_attributes_from_all_tags()
     {
-        $this->shortcodes->add('foo', FooShortcode::class);
-        $this->shortcodes->add('bar', FooShortcode::class);
+        $this->shortcodes->add(FooShortcode::class);
+        $this->shortcodes->add(BarShortcode::class);
 
         $expected = [
             'foo' => [[
@@ -192,8 +192,8 @@ class ParseTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function test_we_can_remove_single_shortcode_tag()
     {
-        $this->shortcodes->add('foo', FooShortcode::class);
-        $this->shortcodes->add('bar', FooShortcode::class);
+        $this->shortcodes->add(FooShortcode::class);
+        $this->shortcodes->add(BarShortcode::class);
 
         $this->shortcodes->remove('foo');
 
@@ -203,8 +203,8 @@ class ParseTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function test_we_can_remove_all_shortcode_tags()
     {
-        $this->shortcodes->add('foo', FooShortcode::class);
-        $this->shortcodes->add('bar', FooShortcode::class);
+        $this->shortcodes->add(FooShortcode::class);
+        $this->shortcodes->add(BarShortcode::class);
 
         $this->shortcodes->removeAll('foo');
 
@@ -214,7 +214,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function shortcode_tags_can_be_escaped()
     {
-        $this->shortcodes->add('foo', FooShortcode::class);
+        $this->shortcodes->add(FooShortcode::class);
 
         $this->assertEquals(
             'This is some [foo bar=baz] content',
@@ -234,7 +234,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function shortcode_with_hyphens()
     {
-        $this->shortcodes->add('foo-bar', FooShortcode::class);
+        $this->shortcodes->add(BazShortcode::class);
 
         $this->assertEquals(
             'This is some <foo></foo> content',
@@ -245,7 +245,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function attribute_with_double_quotes()
     {
-        $this->shortcodes->add('foo', FooShortcode::class);
+        $this->shortcodes->add(FooShortcode::class);
 
         $this->assertEquals(
             'This is some <foo bar=baz></foo> content',
@@ -256,7 +256,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function attribute_with_single_quotes()
     {
-        $this->shortcodes->add('foo', FooShortcode::class);
+        $this->shortcodes->add(FooShortcode::class);
 
         $this->assertEquals(
             'This is some <foo bar=baz></foo> content',
@@ -267,7 +267,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function single_positional_attribute()
     {
-        $this->shortcodes->add('foo', FooShortcode::class);
+        $this->shortcodes->add(FooShortcode::class);
 
         $this->assertEquals(
             'This is some <foo 0=123></foo> content',
@@ -278,7 +278,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function attribute_with_url()
     {
-        $this->shortcodes->add('foo', FooShortcode::class);
+        $this->shortcodes->add(FooShortcode::class);
 
         $this->assertEquals(
             'This is some <foo url=http%3A%2F%2Fwww.foo.com%2Fbar></foo> content',
@@ -289,7 +289,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function mixed_attribute_types()
     {
-        $this->shortcodes->add('foo', FooShortcode::class);
+        $this->shortcodes->add(FooShortcode::class);
 
         $this->assertEquals(
             'This is some <foo 0=123 1=http%3A%2F%2Ffoo.com%2F 2=0 3=foo 4=bar></foo> content',
@@ -300,8 +300,11 @@ class ParseTest extends PHPUnit_Framework_TestCase
 
 class FooShortcode extends Shortcode
 {
+    public static $shortcode = 'foo';
+
     public function parse()
     {
+        var_dump($this->shortcode);
         $attr = '';
 
         if (! empty($this->attr)) {
@@ -314,4 +317,19 @@ class FooShortcode extends Shortcode
 
         return "<foo{$attr}></foo>";
     }
+}
+
+class BarShortcode extends Shortcode
+{
+    public static $shortcode = 'bar';
+
+    public function parse()
+    {
+        //
+    }
+}
+
+class BazShortcode extends FooShortcode
+{
+    public static $shortcode = 'foo-bar';
 }

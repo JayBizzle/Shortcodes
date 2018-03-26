@@ -25,12 +25,12 @@ abstract class Shortcode implements ShortcodeContract
      *
      * @var string
      */
-    public $shortcode;
+    public static $shortcode;
 
-    public function __construct($attr, $content, $shortcode)
+    public function __construct($attr, $content)
     {
         $this->attr = $attr;
         $this->content = $content;
-        $this->shortcode = $shortcode;
+        $this->shortcode = static::$shortcode;
     }
 }
