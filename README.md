@@ -8,7 +8,7 @@
 <a href="https://coveralls.io/github/JayBizzle/Shortcodes"><img src="https://img.shields.io/coveralls/JayBizzle/Shortcodes/master.svg?style=flat-square" /></a>
 </p>
 
-# Shortocode
+# Shortcodes
 
 Shortcodes is a PHP library that will help parse WordPress/BBCode style shortcodes. It can turn something like this...
 
