@@ -304,18 +304,17 @@ class FooShortcode extends Shortcode
 
     public function parse()
     {
-        var_dump($this->shortcode);
-        $attr = '';
+        $attributes = '';
 
-        if (! empty($this->attr)) {
-            $attr = ' '.http_build_query($this->attr, '', ' ');
+        if (! empty($this->attributes)) {
+            $attributes = ' '.http_build_query($this->attributes, '', ' ');
         }
 
         if (! empty($this->content)) {
-            return "<foo{$attr}>{$this->content}</foo>";
+            return "<foo{$attributes}>{$this->content}</foo>";
         }
 
-        return "<foo{$attr}></foo>";
+        return "<foo{$attributes}></foo>";
     }
 }
 
