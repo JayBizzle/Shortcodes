@@ -2,16 +2,16 @@
 
 use Jaybizzle\Shortcodes\Shortcode;
 use Jaybizzle\Shortcodes\Shortcodes;
+use PHPUnit\Framework\TestCase;
 
-class ParseTest extends PHPUnit_Framework_TestCase
+class ParseTest extends TestCase
 {
     public function setUp()
     {
         $this->shortcodes = new Shortcodes;
     }
 
-    /** @test */
-    public function no_tags_added()
+    public function testNoTagsAdded()
     {
         $this->assertEquals(
             'This is some [foo /] content',
@@ -19,8 +19,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /** @test */
-    public function tags_with_closing_slash()
+    public function testTagsWithClosingSlash()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
@@ -30,8 +29,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /** @test */
-    public function tags_without_closing_slash()
+    public function testTagsWithoutClosingSlash()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
@@ -41,8 +39,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /** @test */
-    public function tags_with_closing_slash_and_attributes()
+    public function testTagsWithClosingSlashAndAttributes()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
@@ -52,8 +49,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /** @test */
-    public function tags_without_closing_slash_and_attributes()
+    public function testTagsWithoutClosingSlashAndAttributes()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
@@ -63,8 +59,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /** @test */
-    public function tags_with_opening_and_closing_tags()
+    public function testTagsWithOpeningAndClosingTags()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
@@ -74,8 +69,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /** @test */
-    public function attributes_enclosed_in_double_quotes()
+    public function testAttributesEnclosedInDoubleQuotes()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
@@ -85,8 +79,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /** @test */
-    public function attributes_enclosed_in_single_quotes()
+    public function testAttributesEnclosedInSingleQuotes()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
@@ -96,8 +89,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /** @test */
-    public function attributes_multiple_attributes()
+    public function testAttributesMultipleAttributes()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
@@ -107,8 +99,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /** @test */
-    public function we_can_strip_all_tags()
+    public function testWeCanStripAllTags()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
@@ -118,8 +109,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /** @test */
-    public function we_can_strip_specified_tag()
+    public function testWeCanStripSpecifiedTag()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
@@ -129,8 +119,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /** @test */
-    public function we_can_get_attributes_for_specified_shortcode()
+    public function testWeCanGetAttributesForSpecifiedShortcode()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
@@ -140,8 +129,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /** @test */
-    public function we_can_strip_tags_when_no_tags_specified()
+    public function testWeCanStripTagsWhenNoTagsSpecified()
     {
         $this->assertEquals(
             'This is some [foo bar=baz qux=foo] content',
@@ -149,8 +137,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /** @test */
-    public function we_can_get_the_attributes_from_the_specified_tag()
+    public function testWeCanGetTheAttributesFromTheSpecifiedTag()
     {
         $expected = [[
             'bar' => 'baz',
@@ -163,8 +150,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /** @test */
-    public function we_can_get_the_attributes_from_all_tags()
+    public function testWeCanGetTheAttributesFromAllTags()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
         $this->shortcodes->add('bar', FooShortcode::class);
@@ -189,8 +175,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /** @test */
-    public function test_we_can_remove_single_shortcode_tag()
+    public function testWeCanRemoveSingleShortcodeTag()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
         $this->shortcodes->add('bar', FooShortcode::class);
@@ -200,8 +185,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
         $this->assertCount(1, $this->shortcodes->shortcodeTags);
     }
 
-    /** @test */
-    public function test_we_can_remove_all_shortcode_tags()
+    public function testWeCanRemoveAllShortcodeTags()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
         $this->shortcodes->add('bar', FooShortcode::class);
@@ -211,8 +195,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
         $this->assertCount(0, $this->shortcodes->shortcodeTags);
     }
 
-    /** @test */
-    public function shortcode_tags_can_be_escaped()
+    public function testShortcodeTagsCanBeEscaped()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
@@ -222,8 +205,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /** @test */
-    public function content_with_no_shortcodes()
+    public function testContentWithNoShortcodes()
     {
         $this->assertEquals(
             'This is some content',
@@ -231,8 +213,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /** @test */
-    public function shortcode_with_hyphens()
+    public function testShortcodeWithHyphens()
     {
         $this->shortcodes->add('foo-bar', FooShortcode::class);
 
@@ -242,8 +223,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /** @test */
-    public function attribute_with_double_quotes()
+    public function testAtributeWithDoubleQuotes()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
@@ -253,8 +233,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /** @test */
-    public function attribute_with_single_quotes()
+    public function testAttributeWithSingleQuotes()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
@@ -264,8 +243,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /** @test */
-    public function single_positional_attribute()
+    public function testSinglePositionalAttribute()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
@@ -275,8 +253,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /** @test */
-    public function attribute_with_url()
+    public function testAttributeWithUrl()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
@@ -286,8 +263,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /** @test */
-    public function mixed_attribute_types()
+    public function testMixedAttributeTypes()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
