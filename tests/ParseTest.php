@@ -1,8 +1,8 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use Jaybizzle\Shortcodes\Shortcode;
 use Jaybizzle\Shortcodes\Shortcodes;
-use PHPUnit\Framework\TestCase;
 
 class ParseTest extends TestCase
 {
