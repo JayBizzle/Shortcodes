@@ -1,9 +1,10 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use Jaybizzle\Shortcodes\Shortcode;
 use Jaybizzle\Shortcodes\Shortcodes;
 
-class ParseTest extends PHPUnit_Framework_TestCase
+class ParseTest extends TestCase
 {
     public function setUp()
     {
