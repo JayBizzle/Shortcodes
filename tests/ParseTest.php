@@ -315,7 +315,7 @@ class ParseTest extends TestCase
         if (version_compare(PHP_VERSION, '7.0', '>=')) {
             $this->expectException(\Exception::class);
         } else {
-            $this->setExpectException(\Exception::class);
+            $this->setExpectedException(\Exception::class);
         }
 
         $this->shortcodes->parse('This is some [qux foo=bar]');
