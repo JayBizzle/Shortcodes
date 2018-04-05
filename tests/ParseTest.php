@@ -303,7 +303,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
         $this->shortcodes->add(QuxShortcode::class);
 
         $this->shortcodes->parse('This is some [qux foo=bar]');
-        // $this->addToAssertionCount(1);
+        $this->addToAssertionCount(1);
     }
 
     /** @test */
