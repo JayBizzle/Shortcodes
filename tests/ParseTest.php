@@ -11,7 +11,8 @@ class ParseTest extends TestCase
         $this->shortcodes = new Shortcodes;
     }
 
-    public function testNoTagsAdded()
+    /** @test */
+    public function no_tags_added()
     {
         $this->assertEquals(
             'This is some [foo /] content',
@@ -19,7 +20,8 @@ class ParseTest extends TestCase
         );
     }
 
-    public function testTagsWithClosingSlash()
+    /** @test */
+    public function tags_with_closing_slash()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
@@ -29,7 +31,8 @@ class ParseTest extends TestCase
         );
     }
 
-    public function testTagsWithoutClosingSlash()
+    /** @test */
+    public function tags_without_closing_slash()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
@@ -39,7 +42,8 @@ class ParseTest extends TestCase
         );
     }
 
-    public function testTagsWithClosingSlashAndAttributes()
+    /** @test */
+    public function tags_with_closing_slash_and_attributes()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
@@ -49,7 +53,8 @@ class ParseTest extends TestCase
         );
     }
 
-    public function testTagsWithoutClosingSlashAndAttributes()
+    /** @test */
+    public function tags_without_closing_slash_and_attributes()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
@@ -59,7 +64,8 @@ class ParseTest extends TestCase
         );
     }
 
-    public function testTagsWithOpeningAndClosingTags()
+    /** @test */
+    public function tags_with_opening_and_closing_tags()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
@@ -69,7 +75,8 @@ class ParseTest extends TestCase
         );
     }
 
-    public function testAttributesEnclosedInDoubleQuotes()
+    /** @test */
+    public function attributes_enclosed_in_double_quotes()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
@@ -79,7 +86,8 @@ class ParseTest extends TestCase
         );
     }
 
-    public function testAttributesEnclosedInSingleQuotes()
+    /** @test */
+    public function attributes_enclosed_in_single_quotes()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
@@ -89,7 +97,8 @@ class ParseTest extends TestCase
         );
     }
 
-    public function testAttributesMultipleAttributes()
+    /** @test */
+    public function attributes_multiple_attributes()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
@@ -99,7 +108,8 @@ class ParseTest extends TestCase
         );
     }
 
-    public function testWeCanStripAllTags()
+    /** @test */
+    public function we_can_strip_all_tags()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
@@ -109,7 +119,8 @@ class ParseTest extends TestCase
         );
     }
 
-    public function testWeCanStripSpecifiedTag()
+    /** @test */
+    public function we_can_strip_specified_tag()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
@@ -119,7 +130,8 @@ class ParseTest extends TestCase
         );
     }
 
-    public function testWeCanGetAttributesForSpecifiedShortcode()
+    /** @test */
+    public function we_can_get_attributes_for_specified_shortcode()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
@@ -129,7 +141,8 @@ class ParseTest extends TestCase
         );
     }
 
-    public function testWeCanStripTagsWhenNoTagsSpecified()
+    /** @test */
+    public function we_can_strip_tags_when_no_tags_specified()
     {
         $this->assertEquals(
             'This is some [foo bar=baz qux=foo] content',
@@ -137,7 +150,8 @@ class ParseTest extends TestCase
         );
     }
 
-    public function testWeCanGetTheAttributesFromTheSpecifiedTag()
+    /** @test */
+    public function we_can_get_the_attributes_from_the_specified_tag()
     {
         $expected = [[
             'bar' => 'baz',
@@ -150,7 +164,8 @@ class ParseTest extends TestCase
         );
     }
 
-    public function testWeCanGetTheAttributesFromAllTags()
+    /** @test */
+    public function we_can_get_the_attributes_from_all_tags()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
         $this->shortcodes->add('bar', FooShortcode::class);
@@ -175,7 +190,8 @@ class ParseTest extends TestCase
         );
     }
 
-    public function testWeCanRemoveSingleShortcodeTag()
+    /** @test */
+    public function test_we_can_remove_single_shortcode_tag()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
         $this->shortcodes->add('bar', FooShortcode::class);
@@ -185,7 +201,8 @@ class ParseTest extends TestCase
         $this->assertCount(1, $this->shortcodes->shortcodeTags);
     }
 
-    public function testWeCanRemoveAllShortcodeTags()
+    /** @test */
+    public function test_we_can_remove_all_shortcode_tags()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
         $this->shortcodes->add('bar', FooShortcode::class);
@@ -195,7 +212,8 @@ class ParseTest extends TestCase
         $this->assertCount(0, $this->shortcodes->shortcodeTags);
     }
 
-    public function testShortcodeTagsCanBeEscaped()
+    /** @test */
+    public function shortcode_tags_can_be_escaped()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
@@ -205,7 +223,8 @@ class ParseTest extends TestCase
         );
     }
 
-    public function testContentWithNoShortcodes()
+    /** @test */
+    public function content_with_no_shortcodes()
     {
         $this->assertEquals(
             'This is some content',
@@ -213,7 +232,8 @@ class ParseTest extends TestCase
         );
     }
 
-    public function testShortcodeWithHyphens()
+    /** @test */
+    public function shortcode_with_hyphens()
     {
         $this->shortcodes->add('foo-bar', FooShortcode::class);
 
@@ -223,7 +243,8 @@ class ParseTest extends TestCase
         );
     }
 
-    public function testAtributeWithDoubleQuotes()
+    /** @test */
+    public function attribute_with_double_quotes()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
@@ -233,7 +254,8 @@ class ParseTest extends TestCase
         );
     }
 
-    public function testAttributeWithSingleQuotes()
+    /** @test */
+    public function attribute_with_single_quotes()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
@@ -243,7 +265,8 @@ class ParseTest extends TestCase
         );
     }
 
-    public function testSinglePositionalAttribute()
+    /** @test */
+    public function single_positional_attribute()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
@@ -253,7 +276,8 @@ class ParseTest extends TestCase
         );
     }
 
-    public function testAttributeWithUrl()
+    /** @test */
+    public function attribute_with_url()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
@@ -263,7 +287,8 @@ class ParseTest extends TestCase
         );
     }
 
-    public function testMixedAttributeTypes()
+    /** @test */
+    public function mixed_attribute_types()
     {
         $this->shortcodes->add('foo', FooShortcode::class);
 
