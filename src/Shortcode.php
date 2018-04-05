@@ -40,5 +40,7 @@ abstract class Shortcode implements ShortcodeContract
         } elseif (isset($this->attributes[$name])) {
             return $this->attributes[$name];
         }
+
+        throw new \Exception("Unknown property '{$name}'.");
     }
 }

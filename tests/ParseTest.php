@@ -296,6 +296,24 @@ class ParseTest extends PHPUnit_Framework_TestCase
             $this->shortcodes->parse('This is some [foo 123 http://foo.com/ 0 "foo" bar] content')
         );
     }
+
+    /** @test */
+    public function magic_properties_are_gettable()
+    {
+        $this->shortcodes->add(QuxShortcode::class);
+
+        $this->shortcodes->parse('This is some [qux foo=bar]');
+        // $this->addToAssertionCount(1);
+    }
+
+    /** @test */
+    public function exception_is_thrown_when_accessing_uknown_magic_property()
+    {
+        $this->shortcodes->add(BazQuxShortcode::class);
+
+        $this->expectException(\Exception::class);
+        $this->shortcodes->parse('This is some [qux foo=bar]');
+    }
 }
 
 class FooShortcode extends Shortcode
@@ -331,4 +349,24 @@ class BarShortcode extends Shortcode
 class BazShortcode extends FooShortcode
 {
     public static $shortcode = 'foo-bar';
+}
+
+class QuxShortcode extends Shortcode
+{
+    public static $shortcode = 'qux';
+
+    public function parse()
+    {
+        $this->foo;
+    }
+}
+
+class BazQuxShortcode extends Shortcode
+{
+    public static $shortcode = 'qux';
+
+    public function parse()
+    {
+        $this->doesntExist;
+    }
 }
