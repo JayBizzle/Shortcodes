@@ -312,7 +312,12 @@ class ParseTest extends TestCase
     {
         $this->shortcodes->add(BazQuxShortcode::class);
 
-        $this->expectException(\Exception::class);
+        if (version_compare(PHP_VERSION, '7.0', '>=')) {
+            $this->expectException(\Exception::class);
+        } else {
+            $this->setExpectException(\Exception::class);
+        }
+
         $this->shortcodes->parse('This is some [qux foo=bar]');
     }
 }
