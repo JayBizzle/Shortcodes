@@ -237,7 +237,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
         $this->shortcodes->add(BazShortcode::class);
 
         $this->assertEquals(
-            'This is some <foo></foo> content',
+            'This is some <foo-bar></foo-bar> content',
             $this->shortcodes->parse('This is some [foo-bar] content')
         );
     }
@@ -306,15 +306,16 @@ class FooShortcode extends Shortcode
     {
         $attributes = '';
 
+
         if (! empty($this->attributes)) {
             $attributes = ' '.http_build_query($this->attributes, '', ' ');
         }
 
         if (! empty($this->content)) {
-            return "<foo{$attributes}>{$this->content}</foo>";
+            return "<{$this->shortcode}{$attributes}>{$this->content}</{$this->shortcode}>";
         }
 
-        return "<foo{$attributes}></foo>";
+        return "<{$this->shortcode}{$attributes}></{$this->shortcode}>";
     }
 }
 
