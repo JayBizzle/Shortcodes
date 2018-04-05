@@ -306,7 +306,6 @@ class FooShortcode extends Shortcode
     {
         $attributes = '';
 
-
         if (! empty($this->attributes)) {
             $attributes = ' '.http_build_query($this->attributes, '', ' ');
         }
