@@ -53,6 +53,8 @@ use Jaybizzle\Shortcodes\Shortcode;
 
 class VideoShortcode extends Shortcode
 {
+    public static $shortcode = 'video';
+
     public function parse()
     {
         // All shortcode attributes will be available in $this->attr
@@ -79,7 +81,7 @@ class MyClass
     public function index()
     {
         $shortcodes = new Shortcodes
-        $shortcodes->add('video', VideoClass::class);
+        $shortcodes->add(VideoClass::class);
     }
 }
 ```
