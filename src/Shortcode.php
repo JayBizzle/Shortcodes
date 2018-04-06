@@ -11,7 +11,7 @@ abstract class Shortcode implements ShortcodeContract
      *
      * @var array
      */
-    public $attr;
+    public $attributes;
 
     /**
      * The content of the shortcode.
@@ -25,12 +25,22 @@ abstract class Shortcode implements ShortcodeContract
      *
      * @var string
      */
-    public $shortcode;
+    public static $shortcode;
 
-    public function __construct($attr, $content, $shortcode)
+    public function __construct($attributes, $content)
     {
-        $this->attr = $attr;
         $this->content = $content;
-        $this->shortcode = $shortcode;
+        $this->attributes = $attributes;
+    }
+
+    public function __get($name)
+    {
+        if ($name == 'shortcode') {
+            return static::$shortcode;
+        } elseif (isset($this->attributes[$name])) {
+            return $this->attributes[$name];
+        }
+
+        throw new \Exception("Unknown property '{$name}'.");
     }
 }

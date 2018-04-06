@@ -17,9 +17,9 @@ class Shortcodes
      * @param string $tag
      * @param string $class
      */
-    public function add($tag, $class)
+    public function add($class)
     {
-        $this->shortcodeTags[$tag] = $class;
+        $this->shortcodeTags[$class::$shortcode] = $class;
     }
 
     /**
