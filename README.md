@@ -22,7 +22,7 @@ into this...
 <span style="color:#FF0000;">Red Text</span>
 ```
 
-The output is not predefined, it is up to you to define how the output is handles. See below for examples.
+The output is not predefined, it is up to you to define how the output is handled. See below for examples.
 
 ## Installation
 ```
@@ -34,7 +34,7 @@ Let's take a simple example. We want to create a Shortcode for `video` elements.
 ```bbcode
 [video title="My Awesome Video" videoID=345 width=320 height=240]
 ```
-and make it output something like...
+and make it output something like this...
 ```html
 <video width="320" height="240" controls>
     <source src="/videos/video-345.mp4" type="video/mp4">
@@ -43,7 +43,7 @@ and make it output something like...
 </video>
 ```
 
-Firstly, we need to create a class that is going to handle the parsed Shortcode and it's attributes. We create a new class as follows...
+Firstly, we need to create a class that is going to handle the parsed Shortcode and its attributes. We create a new class as follows...
 ```php
 <?php
 
