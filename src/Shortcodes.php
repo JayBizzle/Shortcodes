@@ -5,7 +5,7 @@ namespace Jaybizzle\Shortcodes;
 class Shortcodes
 {
     /**
-     * Container for storing shortcode tags and their hook to call for the shortcode.
+     * Container for storing shortcode handler classes.
      *
      * @var array
      */
