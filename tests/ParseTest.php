@@ -21,6 +21,25 @@ class ParseTest extends TestCase
     }
 
     /** @test */
+    public function we_can_add_a_single_shortcode()
+    {
+        $this->shortcodes->add(FooShortcode::class);
+
+        $this->assertCount(1, $this->shortcodes->shortcodeTags);
+    }
+
+    /** @test */
+    public function we_can_add_multiple_shorcodes()
+    {
+        $this->shortcodes->add([
+            FooShortcode::class,
+            BarShortcode::class,
+        ]);
+
+        $this->assertCount(2, $this->shortcodes->shortcodeTags);
+    }
+
+    /** @test */
     public function tags_with_closing_slash()
     {
         $this->shortcodes->add(FooShortcode::class);

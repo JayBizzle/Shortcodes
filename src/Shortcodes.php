@@ -14,12 +14,17 @@ class Shortcodes
     /**
      * Add shortcode hooks.
      *
-     * @param string $tag
-     * @param string $class
+     * @param array|string $classes
      */
-    public function add($class)
+    public function add($classes)
     {
-        $this->shortcodeTags[$class::$shortcode] = $class;
+        if (! is_array($classes)) {
+            $classes = [$classes];
+        }
+
+        foreach ($classes as $class) {
+            $this->shortcodeTags[$class::$shortcode] = $class;
+        }
     }
 
     /**
