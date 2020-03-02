@@ -83,7 +83,7 @@ class Shortcodes
      */
     protected function buildShortcodeRegex($tags)
     {
-        return '(\s?)\[('.$tags.')\b(.*?)(?:(\/))?\](?:(.+?)\[\/\2\])?(\s?)';
+        return '([\s|\[]?)\[('.$tags.')\b(.*?)(?:(\/))?\](?:(.+?)\[\/\2\])?([\s|\]]?)';
     }
 
     /**
