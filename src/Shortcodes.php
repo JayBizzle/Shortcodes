@@ -53,7 +53,7 @@ class Shortcodes
      */
     public function parse($content)
     {
-        if (empty($this->shortcodeTags) || ! is_array($this->shortcodeTags)) {
+        if (empty($content) || empty($this->shortcodeTags) || ! is_array($this->shortcodeTags)) {
             return $content;
         }
 
@@ -150,7 +150,7 @@ class Shortcodes
      */
     public function stripShortcodes($content)
     {
-        if (empty($this->shortcodeTags) || ! is_array($this->shortcodeTags)) {
+        if (empty($content) || empty($this->shortcodeTags) || ! is_array($this->shortcodeTags)) {
             return $content;
         }
 
@@ -167,6 +167,10 @@ class Shortcodes
      */
     public function stripShortcode($shortcode, $content)
     {
+        if (empty($content)) {
+            return $content;
+        }
+        
         $pattern = $this->buildShortcodeRegex(preg_quote($shortcode));
 
         return preg_replace('/'.$pattern.'/s', ' ', $content);
