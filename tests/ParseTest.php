@@ -1,14 +1,14 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use Jaybizzle\Shortcodes\Shortcode;
 use Jaybizzle\Shortcodes\Shortcodes;
+use PHPUnit\Framework\TestCase;
 
 class ParseTest extends TestCase
 {
     public function setUp()
     {
-        $this->shortcodes = new Shortcodes;
+        $this->shortcodes = new Shortcodes();
     }
 
     /** @test */
@@ -349,11 +349,11 @@ class FooShortcode extends Shortcode
     {
         $attributes = '';
 
-        if (! empty($this->attributes)) {
+        if (!empty($this->attributes)) {
             $attributes = ' '.http_build_query($this->attributes, '', ' ');
         }
 
-        if (! empty($this->content)) {
+        if (!empty($this->content)) {
             return "<{$this->shortcode}{$attributes}>{$this->content}</{$this->shortcode}>";
         }
 
