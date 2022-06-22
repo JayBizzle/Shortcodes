@@ -2,8 +2,6 @@
 
 namespace Jaybizzle\Shortcodes;
 
-use Jaybizzle\Shortcodes\ShortcodeContract;
-
 abstract class Shortcode implements ShortcodeContract
 {
     /**
