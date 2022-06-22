@@ -232,8 +232,6 @@ class ParseTest extends TestCase
             ]],
         ];
 
-        $shortcodes = new Shortcodes();
-
         $this->assertEquals(
             $expected,
             $shortcodes->getShortcodes('This is some [foo bar=baz qux=foo] [foo bar=baz qux=foo] [bar bar=baz qux=foo] content')
