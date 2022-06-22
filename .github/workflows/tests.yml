@@ -50,5 +50,5 @@ jobs:
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          composer global require php-coveralls/php-coveralls "^1.0"
+          composer global require php-coveralls/php-coveralls "^2.0"
           coveralls --coverage_clover=tests/logs/clover.xml -v
