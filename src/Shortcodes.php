@@ -18,7 +18,7 @@ class Shortcodes
      */
     public function add($classes)
     {
-        if (!is_array($classes)) {
+        if (! is_array($classes)) {
             $classes = [$classes];
         }
 
@@ -54,7 +54,7 @@ class Shortcodes
      */
     public function parse($content)
     {
-        if (empty($content) || empty($this->shortcodeTags) || !is_array($this->shortcodeTags)) {
+        if (empty($content) || empty($this->shortcodeTags) || ! is_array($this->shortcodeTags)) {
             return $content;
         }
 
@@ -127,11 +127,11 @@ class Shortcodes
 
         if (preg_match_all($pattern, $text, $match, PREG_SET_ORDER)) {
             foreach ($match as $m) {
-                if (!empty($m[1])) {
+                if (! empty($m[1])) {
                     $atts[strtolower($m[1])] = stripcslashes($m[2]);
-                } elseif (!empty($m[3])) {
+                } elseif (! empty($m[3])) {
                     $atts[strtolower($m[3])] = stripcslashes($m[4]);
-                } elseif (!empty($m[5])) {
+                } elseif (! empty($m[5])) {
                     $atts[strtolower($m[5])] = stripcslashes($m[6]);
                 } elseif (isset($m[7]) && strlen($m[7])) {
                     $atts[] = stripcslashes($m[7]);
@@ -155,7 +155,7 @@ class Shortcodes
      */
     public function stripShortcodes($content)
     {
-        if (empty($content) || empty($this->shortcodeTags) || !is_array($this->shortcodeTags)) {
+        if (empty($content) || empty($this->shortcodeTags) || ! is_array($this->shortcodeTags)) {
             return $content;
         }
 
