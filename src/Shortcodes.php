@@ -194,6 +194,10 @@ class Shortcodes
      */
     public function getShortcode($shortcode, $content)
     {
+        if (is_null($content)) {
+            return [];
+        }
+
         $pattern = $this->buildShortcodeRegex($shortcode);
 
         preg_match_all('/'.$pattern.'/s', $content, $matches);
