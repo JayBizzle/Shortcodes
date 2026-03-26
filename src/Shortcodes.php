@@ -70,6 +70,7 @@ class Shortcodes
     protected function getShortcodeRegex()
     {
         $tagNames = array_keys($this->shortcodeTags);
+        usort($tagNames, fn ($a, $b) => strlen($b) - strlen($a));
         $tagRegexp = implode('|', array_map('preg_quote', $tagNames));
 
         return $this->buildShortcodeRegex($tagRegexp);

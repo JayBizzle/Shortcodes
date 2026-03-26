@@ -483,6 +483,28 @@ class ParseTest extends TestCase
             $this->shortcodes->getShortcode('foo', '[foo id=1] and [foo id=2]')
         );
     }
+
+    public function test_longer_tag_matches_before_shorter_tag_regardless_of_registration_order()
+    {
+        $this->shortcodes->add(ImageShortcode::class);
+        $this->shortcodes->add(ImageUrlShortcode::class);
+
+        $this->assertEquals(
+            'image-url:yes and image:yes',
+            $this->shortcodes->parse('[image-url] and [image]')
+        );
+    }
+
+    public function test_longer_tag_matches_when_registered_first()
+    {
+        $this->shortcodes->add(ImageUrlShortcode::class);
+        $this->shortcodes->add(ImageShortcode::class);
+
+        $this->assertEquals(
+            'image-url:yes and image:yes',
+            $this->shortcodes->parse('[image-url] and [image]')
+        );
+    }
 }
 
 class FooShortcode extends Shortcode
@@ -537,5 +559,25 @@ class BazQuxShortcode extends Shortcode
     public function parse()
     {
         $this->doesntExist;
+    }
+}
+
+class ImageShortcode extends Shortcode
+{
+    public static $shortcode = 'image';
+
+    public function parse()
+    {
+        return 'image:yes';
+    }
+}
+
+class ImageUrlShortcode extends Shortcode
+{
+    public static $shortcode = 'image-url';
+
+    public function parse()
+    {
+        return 'image-url:yes';
     }
 }
