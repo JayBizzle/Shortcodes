@@ -6,7 +6,9 @@ use Jaybizzle\Shortcodes\Shortcodes;
 
 class ParseTest extends TestCase
 {
-    public function setUp()
+    protected Shortcodes $shortcodes;
+
+    protected function setUp(): void
     {
         $this->shortcodes = new Shortcodes;
     }
@@ -331,11 +333,7 @@ class ParseTest extends TestCase
     {
         $this->shortcodes->add(BazQuxShortcode::class);
 
-        if (version_compare(PHP_VERSION, '7.0', '>=')) {
-            $this->expectException(\Exception::class);
-        } else {
-            $this->setExpectedException(\Exception::class);
-        }
+        $this->expectException(\Exception::class);
 
         $this->shortcodes->parse('This is some [qux foo=bar]');
     }
